@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+:root {
+  --green: #008542;
+  --yellow: #FDC82F;
+  --blue: #006298;
+  --white: #FFFFFF;
+  --water-green: #00B2A9;
+  --light-green: #A8B400;
+  --light-yellow: #FEDF00;
+  --orange: #E17000;
+  --dark-gray: #675C53;
+  --light-gray: #BCBDBC;
+  --dark-blue: #004165;
+  --light-blue: #7D9AAA;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif, system-ui;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  max-width: 100vw;
+  min-height: 100vh;
+  font-size: 1.6rem;
+  background: linear-gradient(180deg,
+      var(--white) 0%,
+      var(--yellow) 60%,
+      var(--green) 100%);
+
+  /* background: linear-gradient(130deg, 
+    var(--white) 25%, 
+    var(--yellow) 50%, 
+    var(--green) 90%); */
+}
+
+h1 {
+  font-size: 3.2rem;
+}
