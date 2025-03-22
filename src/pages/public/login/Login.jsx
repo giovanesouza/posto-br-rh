@@ -1,6 +1,11 @@
-import "./Login.css";
 import Logo from "../../../assets/logo.png";
 import { useState } from "react";
+import { InputGroup } from "../../../components/inputGroup/InputGroup";
+import { Button } from "../../../components/button/Button";
+import {
+  isEmailValid,
+  isPasswordValid,
+} from "../../../utils/formValidation/regexFieldValidation.js";
 
 export default function Login() {
   const [fieldValue, setFieldValue] = useState({
@@ -8,42 +13,46 @@ export default function Login() {
     password: "",
   });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setFieldValue({
       ...fieldValue,
       [name]: value,
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  };
+
   return (
-    <form>
-      <div className="form-header">
-        <img src={Logo} alt="logo - Posto BR" />
-        <h1>LOGIN - RH</h1>
-      </div>
+    <main>
+      <form onSubmit={handleSubmit}>
+        <div className="form-header">
+          <img src={Logo} alt="logo - Posto BR" />
+          <h1>LOGIN - RH</h1>
+        </div>
 
-      <div>
-        <input
-          name="email"
-          type="email"
-          value={fieldValue.email}
-          placeholder="E-mail"
-          autoFocus="true"
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="password"
-          type="password"
-          value={fieldValue.password}
-          placeholder="Senha"
-          onChange={handleChange}
-          required
-        />
+        <div>
+          <InputGroup
+            name="email"
+            type="text"
+            value={fieldValue.email}
+            placeholder="E-mail"
+            autoFocus="true"
+            onChange={handleChange}
+          />
 
-        <button type="submit">Entrar</button>
-      </div>
-    </form>
+          <InputGroup
+            name="password"
+            type="password"
+            value={fieldValue.password}
+            placeholder="Senha"
+            onChange={handleChange}
+          />
+          <Button type="submit" content="Entrar" />
+        </div>
+      </form>
+    </main>
   );
 }

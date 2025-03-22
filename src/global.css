@@ -20,6 +20,8 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif, system-ui;
+  text-decoration: none;
+  list-style: none;
 }
 
 html {
@@ -43,4 +45,59 @@ body {
 
 h1 {
   font-size: 3.2rem;
+}
+
+form {
+  width: 35rem;
+  background-color: var(--white);
+  border-radius: 0 0 2rem 2rem;
+  margin: 0 auto;
+  padding: 2rem;
+  box-shadow: 0 0 2rem var(--white), 0 0 2rem var(--light-gray);
+
+  & .form-header {
+      text-align: center;
+      margin-bottom: 2rem;
+
+      & img {
+          margin-bottom: 1rem;
+      }
+
+      & h1 {
+          color: var(--green);
+          font-weight: 400;
+      }
+  }
+
+  /* & input, button {
+      width: 100%;
+      font-size: 1.4rem;
+      padding: 1rem;
+      border: .1rem solid var(--light-gray);
+      border-radius: 1rem;
+
+  }
+
+  & input {
+      display: block;
+      margin-bottom: 2rem;
+      outline: none;
+      
+      &::placeholder {
+          color: var(--green);
+      }
+  } */
+
+  /* & button {
+      background-color: var(--white);
+      font-weight: 500;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all .2s ease-in-out;
+  
+      &:hover {
+          background-color: var(--green);
+          color: var(--white);
+      }
+  } */
 }

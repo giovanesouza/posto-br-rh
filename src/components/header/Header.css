@@ -1,0 +1,8 @@
+header {
+    background-color: var(--white);
+}
+
+ul {
+    display: flex;
+    gap: 10rem;
+}

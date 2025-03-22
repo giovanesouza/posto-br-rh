@@ -1,0 +1,51 @@
+.input-group {
+    label {
+        display: block;
+        color: var(--green);
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-bottom: .5rem;
+    }
+
+    & input,
+    button {
+        width: 100%;
+        font-size: 1.4rem;
+        padding: 1rem;
+        border: .1rem solid var(--light-gray);
+        border-radius: 1rem;
+    }
+
+    & input {
+        display: block;
+        margin-bottom: 2rem;
+        outline: none;
+
+        &::placeholder {
+            color: var(--light-gray);
+        }
+    }
+
+}
+
+.input-group-checkbox {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 3rem;
+    gap: 2rem;
+     
+    & label {
+        color: var(--green);
+        text-transform: uppercase;
+        font-weight: 600;
+        margin: 0;
+    }
+    
+    & input[type="checkbox"] {
+        width: auto;
+        margin: 0;
+        accent-color: var(--orange);
+    }
+}
