@@ -1,8 +1,117 @@
 header {
-    background-color: var(--white);
+    width: 100%;
+    height: 6rem;
+    background-color: var(--green);
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+}
+
+nav {
+    display: flex;
+    width: 100%;
+    max-width: var(--max-width-content);
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+
+    & a {
+        background-color: transparent !important;
+        color: var(--white) !important;
+        border: .1rem solid var(--white) !important;
+        text-transform: uppercase;
+        
+        &:hover {
+            background-color: var(--white) !important;
+            color: var(---bg-dark) !important;
+        }
+    }
+
+    & a.logout {
+        background-color: transparent;
+        color: var(--white);
+        border: 0 !important;
+
+        &:hover {
+            background-color: transparent !important;
+            color: var(--yellow) important;
+        }
+    }
+
+    & button {
+        width: fit-content !important;
+        background-color: transparent !important;
+        border: 0 !important;
+        color: var(--white);
+
+        &:hover {
+            color: var(--yellow);
+        }
+    }
+}
+
+
+.tootle {
+    display: none;
+    color: var(--white);
+    cursor: pointer;
+
+    &:hover {
+        color: var(--yellow);
+    }
 }
 
 ul {
+    width: 100%;
     display: flex;
-    gap: 10rem;
+    gap: 2rem;
+    transition: all .2s ease-in-out;
+}
+
+/* ul */
+.menu-hidden {
+    display: flex;
+}
+
+.right-menu {
+    display: flex;
+}
+
+
+@media (max-width: 768px) {
+    .tootle {
+        display: block;
+    }
+
+    & ul {
+        width: auto !important;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 6rem;
+        left: 2rem;
+        gap: .5rem;
+        padding: .1rem 0rem .1rem 0rem; /*Top right left bottom*/
+        background-color: var(--green);
+    }
+
+    .menu-visible {
+        & a {
+            background-color: transparent;
+            color: var(--white);
+            border: 0 !important;
+            border-radius: 0;
+            width: 100%;
+
+            &:hover {
+                transform: scale(1);
+                background-color: var(--yellow);
+                color: var(--bg-dark);
+            }
+        }
+    }
+
+    .menu-hidden {
+        display: none;
+    }
 }

@@ -1,0 +1,50 @@
+.Toastify__toast {
+  & .Toastify__close-button {
+    background-color: transparent;
+    width: 2rem;
+    line-height: 5rem;
+  }
+}
+
+.Toastify__toast--info {
+  background: var(--blue) !important;
+  color: var(--white);
+}
+
+.Toastify__toast--success {
+  background: var(--green) !important;
+  color: var(--white);
+}
+
+.Toastify__toast--warning {
+  background: var(--yellow) !important;
+  color: var(--bg-dark);
+}
+
+.Toastify__toast--error {
+  background: var(--bg-danger) !important;
+  color: var(--white);
+}
+
+
+/* Barra */
+.Toastify__progress-bar {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+
+/* Estilizando os ícones */
+.Toastify__toast-icon>svg {
+  width: 2.4rem !important;
+  height: 2.4rem !important;
+}
+
+.Toastify__toast--info .Toastify__toast-icon>svg,
+.Toastify__toast--success .Toastify__toast-icon>svg,
+.Toastify__toast--error .Toastify__toast-icon>svg {
+  fill: var(--white);
+}
+
+.Toastify__toast--warning .Toastify__toast-icon>svg {
+  fill: var(--bg-dark);
+}

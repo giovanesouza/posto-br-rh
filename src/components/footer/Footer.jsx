@@ -10,7 +10,7 @@ export const Footer = () => {
           Giovane Souza |
         </Link>
         <Link to="mailto:developergiovanesouza@gmail.com">
-          <span class="material-symbols-outlined">mail</span>
+          <span className="material-symbols-outlined">mail</span>
           developergiovanesouza@gmail.com
         </Link>
       </address>
