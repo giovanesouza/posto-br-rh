@@ -1,0 +1,87 @@
+input[name="searchEmployeeName"] {
+    max-width: 46rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+
+    border: .1rem solid var(--bg-dark);
+    border-radius: .5rem;
+    outline: none;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    width: 100%;
+    background-color: aqua;
+    max-height: 65rem;
+}
+
+table,
+th,
+td {
+    border-collapse: separate;
+}
+
+table {
+    width: 100%;
+    min-width: 92rem;
+    background-color: var(--white);
+    text-align: justify;
+    font-size: 1.4rem;
+    border-spacing: 0 .5rem;
+    margin: 0 auto;
+
+    & thead, & tfoot {
+        background-color: var(--dark-blue);
+        color: var(--white);
+    }
+
+    & tbody > tr:hover {
+        background-color: var(--bg-tr-hover);
+    }
+
+    & th,
+    & td {
+        padding: .5rem;
+    }
+}
+
+input[type=date] {
+    background-color: transparent;
+    color: var(--bg-dark);
+    font-size: 1.4rem;
+    border: none;
+}
+
+.employee-situation {
+    height: fit-content;
+    border: none;
+    border-radius: 1rem;
+
+    & div {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: .5rem;
+        color: var(--white);
+        font-weight: bold;
+    }
+}
+
+.employee-situation.has-vacation {
+    background-color: var(--green);
+}
+
+.employee-situation.no-vacation {
+    background-color: var(--bg-danger);
+}
+
+.td-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.expiredDay {
+    color: var(--bg-danger);
+    font-weight: bold;
+}

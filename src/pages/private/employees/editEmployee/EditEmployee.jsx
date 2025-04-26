@@ -1,18 +1,22 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { InputGroup } from "../../../../components/inputGroup/InputGroup";
-import { Button } from "../../../../components/button/Button";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { InputGroup } from "../../../../components/inputGroup/InputGroup.jsx";
+import { Button } from "../../../../components/button/Button.jsx";
 import {
-  isNameValid,
   formatCPF,
+  isNameValid,
   validateCPF,
 } from "../../../../utils/formValidation/regexFieldValidation.js";
 import ToastAnimated, {
   showToast,
 } from "../../../../components/ui-lib/Toast.jsx";
-import { createEmployee } from "../../../../services/employeesService.jsx";
+import {
+  updateEmployee,
+  findEmployeeById,
+} from "../../../../services/employeesService.jsx";
 
-export default function RegisterEmployee() {
+export default function EditEmployee() {
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [fieldValue, setFieldValue] = useState({
@@ -20,6 +24,10 @@ export default function RegisterEmployee() {
     cpf: "",
     admissionDate: "",
   });
+
+  useEffect(() => {
+    getEmployeeById();
+  }, []);
 
   const formatValue = (name, value, type) => {
     if (name === "cpf") {
@@ -36,6 +44,21 @@ export default function RegisterEmployee() {
       ...fieldValue,
       [name]: formatValue(name, fieldValueUpdate, type),
     });
+  };
+
+  const getEmployeeById = async () => {
+    try {
+      const response = await findEmployeeById(id);
+      if (response) {
+        setFieldValue({
+          employeeName: response.name,
+          cpf: response.cpf,
+          admissionDate: response.admissionDate.slice(0, 10),
+        });
+      }
+    } catch (error) {
+      showToast({ type: "error", message: error.response.data.message });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -67,13 +90,13 @@ export default function RegisterEmployee() {
     try {
       const employee = {
         name: fieldValue.employeeName,
-        cpf: fieldValue.cpf,
-        admissionDate: fieldValue.admissionDate,
+        cpf: formatCPF(fieldValue.cpf),
+        admissionDate: fieldValue.admissionDate.slice(0, 10),
         isPendingVacation: false,
       };
-      await createEmployee(employee);
+      await updateEmployee(id, employee);
       navigate("/app/funcionarios", {
-        state: `Funcionário "${fieldValue.employeeName}" cadastrado com sucesso!`,
+        state: `Funcionário "${fieldValue.employeeName}" atualizado com sucesso!`,
       });
     } catch (error) {
       showToast({ type: "error", message: error.response.data.message });
@@ -83,9 +106,7 @@ export default function RegisterEmployee() {
   return (
     <>
       <ToastAnimated />
-      <h1 style={{ marginBottom: "5rem", textAlign: "center" }}>
-        Cadastrar funcionário
-      </h1>
+      <h1 style={{marginBottom: "5rem" }} className="text-align-center">Editar funcionário</h1>
       <form onSubmit={handleSubmit}>
         <InputGroup
           label="Nome:"
@@ -129,7 +150,7 @@ export default function RegisterEmployee() {
           onChange={handleChange}
         />
 
-        <Button type="submit" content="Cadastrar" />
+        <Button type="submit" content="Atualizar" />
       </form>
     </>
   );
