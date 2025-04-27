@@ -5,7 +5,7 @@ import { InputGroup } from "../../../components/inputGroup/InputGroup";
 import { Button } from "../../../components/button/Button";
 import ToastAnimated, { showToast } from "../../../components/ui-lib/Toast.jsx";
 import {
-  isEmailValid as IsEmailValid,
+  isUsernameValid as IsUsernameValid,
   isPasswordValid as IsPasswordValid,
 } from "../../../utils/formValidation/regexFieldValidation.js";
 import { useLocation } from "react-router-dom";
@@ -20,7 +20,7 @@ export default function Login() {
   }, []);
 
   const [fieldValue, setFieldValue] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -35,10 +35,10 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const isEmailValid = IsEmailValid(fieldValue.email);
-    const isPasswordvalid = IsPasswordValid(fieldValue.senha);
+    const isUsernameValid = IsUsernameValid(fieldValue.username);
+    const isPasswordvalid = IsPasswordValid(fieldValue.password);
 
-    if (!isEmailValid || !isPasswordvalid) {
+    if (!isUsernameValid || !isPasswordvalid) {
       showToast({
         type: "error",
         message: "Verifique se os campos foram preenchidos corretamente.",
@@ -64,13 +64,15 @@ export default function Login() {
 
         <div>
           <InputGroup
-            name="email"
+            name="username"
             type="text"
-            value={fieldValue.email}
-            placeholder="E-mail"
+            value={fieldValue.username}
+            placeholder="Usuário"
             autoFocus="true"
             onChange={handleChange}
-            inputClassName={fieldValue.email ? IsEmailValid(fieldValue.email) ? "input-success" : "input-error" : ""}
+            minLength="12"
+            maxLength="20"
+            inputClassName={fieldValue.username ? IsUsernameValid(fieldValue.username) ? "input-success" : "input-error" : ""}
           />
 
           <InputGroup

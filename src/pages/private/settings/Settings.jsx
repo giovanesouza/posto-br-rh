@@ -5,7 +5,7 @@ import { InputGroup } from "../../../components/inputGroup/InputGroup.jsx";
 import { Button } from "../../../components/button/Button.jsx";
 import { findUserById, updateUser } from "../../../services/userService.jsx";
 import {
-  isEmailValid as IsEmailValid,
+  isUsernameValid as IsUsernameValid,
   isPasswordValid as IsPasswordValid,
 } from "../../../utils/formValidation/regexFieldValidation.js";
 
@@ -14,7 +14,7 @@ export default function Settings() {
   const navigate = useNavigate();
 
   const [fieldValue, setFieldValue] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -27,7 +27,7 @@ export default function Settings() {
       const response = await findUserById(userId);
       if (response) {
         setFieldValue({
-          email: response.email,
+          username: response.username,
           password: "",
         });
       }
@@ -50,12 +50,12 @@ export default function Settings() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const isEmailValid = IsEmailValid(fieldValue.email);
+    const isUsernameValid = IsUsernameValid(fieldValue.username);
 
-    if (!isEmailValid) {
+    if (!isUsernameValid) {
       showToast({
         type: "error",
-        message: "Verifique se o campo e-mail foi preenchido corretamente.",
+        message: "Verifique se o campo usuário foi preenchido corretamente.",
       });
       return;
     }
@@ -79,15 +79,17 @@ export default function Settings() {
       </h1>
       <form onSubmit={handleSubmit}>
         <InputGroup
-          name="email"
+          name="username"
           type="text"
-          value={fieldValue.email}
-          placeholder="E-mail"
+          value={fieldValue.username}
+          placeholder="Usuário"
           autoFocus="true"
+          minLength="12"
+          maxLength="20"
           onChange={handleChange}
           inputClassName={
-            fieldValue.email
-              ? IsEmailValid(fieldValue.email)
+            fieldValue.username
+              ? IsUsernameValid(fieldValue.username)
                 ? "input-success"
                 : "input-error"
               : ""

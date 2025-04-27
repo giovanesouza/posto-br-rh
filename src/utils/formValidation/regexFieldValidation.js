@@ -3,6 +3,11 @@ export function isNameValid(name) {
     return pattern.test(name.trim());
 };
 
+export function isUsernameValid(username) {
+    const pattern = /^[A-Za-zÀ-ÿ]{12,20}$/;
+    return pattern.test(username.trim());
+};
+
 export function isEmailValid(userEmail) {
     const pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return pattern.test(userEmail.trim());
