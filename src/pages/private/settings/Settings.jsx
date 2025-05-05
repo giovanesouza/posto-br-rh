@@ -94,6 +94,7 @@ export default function Settings() {
                 : "input-error"
               : ""
           }
+          icon="person"
         />
 
         <InputGroup
@@ -111,6 +112,7 @@ export default function Settings() {
                 : "input-error"
               : ""
           }
+          icon="visibility_off"
         />
 
         <div className="alert">

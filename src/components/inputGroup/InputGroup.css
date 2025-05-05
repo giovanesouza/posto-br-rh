@@ -1,4 +1,5 @@
 .input-group {
+    position: relative;
     label {
         display: block;
         color: var(--green);
@@ -24,6 +25,15 @@
         &::placeholder {
             color: var(--light-gray);
         }
+    }
+
+
+    & .input-group-icon {
+        color: var(--green);
+        position: absolute;
+        top: .8rem;
+        right: 1rem;
+        cursor: pointer;
     }
 
 }

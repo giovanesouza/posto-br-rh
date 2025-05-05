@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import "./InputGroup.css";
 
 export const InputGroup = ({
@@ -16,18 +17,25 @@ export const InputGroup = ({
   autoFocus,
   readOnly,
   disabled,
-  inputClassName
+  inputClassName,
+  icon,
 }) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const handleTogglePasswordVisibility = () => {
+    if (icon === "visibility" || icon === "visibility_off") {
+      setIsPasswordVisible(!isPasswordVisible);
+    }
+  };
+
   return (
     <div
-      className={
-        type != "checkbox" ? "input-group" : "input-group-checkbox"
-      }
+      className={type != "checkbox" ? "input-group" : "input-group-checkbox"}
     >
       <label htmlFor={name}>{label}</label>
       <input
         autoComplete="off"
-        type={type}
+        type={isPasswordVisible && type === "password" ? "text" : type}
         name={name}
         id={name}
         placeholder={placeholder}
@@ -44,6 +52,25 @@ export const InputGroup = ({
         disabled={disabled}
         className={inputClassName}
       />
+
+      {icon && (
+        <span
+          className="material-symbols-outlined input-group-icon"
+          onClick={handleTogglePasswordVisibility}
+          style={{
+            cursor:
+              icon === "visibility" || icon === "visibility_off"
+                ? "pointer"
+                : "default",
+          }}
+        >
+          {icon === "visibility" || icon === "visibility_off"
+            ? isPasswordVisible
+              ? "visibility"
+              : "visibility_off"
+            : icon}
+        </span>
+      )}
     </div>
   );
 };
