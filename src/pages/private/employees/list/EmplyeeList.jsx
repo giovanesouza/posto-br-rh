@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ToastAnimated, {
   showToast,
 } from "../../../../components/ui-lib/Toast.jsx";
@@ -59,13 +59,16 @@ export default function EmployeeList() {
       <ToastAnimated />
       <h1>Situação dos funcionários</h1>
 
-      <input
-        type="text"
-        name="searchEmployeeName"
-        value={searchEmployeeName}
-        onChange={(e) => SetSearchEmployeeName(e.target.value)}
-        placeholder="Buscar funcionário"
-      />
+      <div className="search-wrapper">
+        <input
+          type="text"
+          name="searchEmployeeName"
+          value={searchEmployeeName}
+          onChange={(e) => SetSearchEmployeeName(e.target.value)}
+          placeholder="Buscar funcionário"
+        />
+        <span className="material-symbols-outlined searchEmployeeNameIcon">person_search</span>
+      </div>
 
       <div className="table-wrapper">
         <table>

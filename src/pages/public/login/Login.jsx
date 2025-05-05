@@ -73,6 +73,7 @@ export default function Login() {
             minLength="12"
             maxLength="20"
             inputClassName={fieldValue.username ? IsUsernameValid(fieldValue.username) ? "input-success" : "input-error" : ""}
+            icon="person"
           />
 
           <InputGroup
@@ -84,6 +85,7 @@ export default function Login() {
             maxLength="20"
             onChange={handleChange}
             inputClassName={fieldValue.password ? IsPasswordValid(fieldValue.password) ? "input-success" : "input-error" : ""}
+            icon="visibility_off"
           />
 
           <Button type="submit" content="Entrar" />

@@ -1,13 +1,26 @@
-input[name="searchEmployeeName"] {
+.search-wrapper {
+    position: relative;
     max-width: 46rem;
     margin-top: 2rem;
     margin-bottom: 1rem;
-    padding: 1rem;
+    
+    & input[name="searchEmployeeName"] {
+        width: 100%;
+        padding: 1rem 4rem 1rem 1rem;
+        border: .1rem solid var(--bg-dark);
+        border-radius: .5rem;
+        outline: none;
+    }
+    
+    & .searchEmployeeNameIcon {
+        color: var(--green);
+        position: absolute;
+        top: .7rem;
+        right: 1rem;
+    }
 
-    border: .1rem solid var(--bg-dark);
-    border-radius: .5rem;
-    outline: none;
 }
+
 
 .table-wrapper {
     overflow-x: auto;
