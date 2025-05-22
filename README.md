@@ -59,29 +59,26 @@ Com o repositório clonado, execute os seguintes comandos no diretório do proje
 
 ### Login
 
-<video src="./doc/videos/1-login.mp4" controls width="900"></video>
-
+https://github.com/user-attachments/assets/ae48a90e-cca1-4dd2-a96c-88530b3f82e4
 
 ### Cadastro e busca de funcionários
 
-<video src="./doc/videos/2-create-read-search.mp4" controls width="900"></video>
-
+https://github.com/user-attachments/assets/3f8b50a7-db31-4ef1-bf60-f46b948d26c0
 
 ### Atualização e exclusão de funcionários
 
-<video src="./doc/videos/3-update-delete.mp4" controls width="900"></video>
-
+https://github.com/user-attachments/assets/908991f9-8475-438a-95aa-f782dacb78c3
 
 ### Criação, listagem, atualização e exclusão de férias
 
-<video src="./doc/videos/4-add-update-delete-Vacation.mp4" controls width="900"></video>
-
+https://github.com/user-attachments/assets/82a51d58-e4a7-431c-ac72-9326b7183583
 
 ### Atualização de usuário
 
-<video src="./doc/videos/5-update-user.mp4" controls width="900"></video>
-
+https://github.com/user-attachments/assets/c3efcbbf-8d31-483e-936c-ab45b93dfdbe
 
 ### Responsividade
 
-<video src="./doc/videos/6-responsivity.mp4" controls width="900"></video>
+https://github.com/user-attachments/assets/8a818b13-ac03-4687-8221-aa2fffe87b24
+
+
