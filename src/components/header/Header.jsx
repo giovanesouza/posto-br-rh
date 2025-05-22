@@ -12,6 +12,11 @@ export const Header = () => {
     setMenuOpen((prevState) => !prevState);
   };
 
+  const handleClick = (route) => {
+    setMenuOpen(false);
+    navigate(route);
+  };
+
   return (
     <header>
       <nav>
@@ -20,17 +25,17 @@ export const Header = () => {
         </div>
         <ul className={menuOpen ? "menu-visible" : "menu-hidden"}>
           <Link to="/app/funcionarios">
-            <li>Listar funcionários</li>
+            <li onClick={() => handleClick("/app/funcionarios")}>Listar funcionários</li>
           </Link>
           <Link to="/app/cadastrar-funcionario">
-            <li>Cadastrar funcionário</li>
+            <li onClick={() => handleClick("/app/cadastrar-funcionario")}>Cadastrar funcionário</li>
           </Link>
         </ul>
         <div className="right-menu">
           <button
             className="material-symbols-outlined"
             title="Configurações do Admin"
-            onClick={() => navigate(`/app/settings/atualizar-login/user/${userInfo.id}`)}
+            onClick={() => handleClick(`/app/settings/atualizar-login/user/${userInfo.id}`)}
           >
             settings
           </button>
