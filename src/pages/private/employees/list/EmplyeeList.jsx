@@ -28,7 +28,7 @@ export default function EmployeeList() {
       const response = await findAllEmployees(searchEmployeeName);
       if (response) setEmployees(response);
     } catch (error) {
-      cshowToast({ type: "error", message: error.response.data.message });
+      showToast({ type: "error", message: error.response.data.message });
     }
   };
 
