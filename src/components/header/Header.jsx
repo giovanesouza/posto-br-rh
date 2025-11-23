@@ -20,33 +20,65 @@ export const Header = () => {
   return (
     <header>
       <nav>
-        <div className="material-symbols-outlined tootle" onClick={toggleMenu}>
-          menu
-        </div>
-        <ul className={menuOpen ? "menu-visible" : "menu-hidden"}>
-          <Link to="/app/funcionarios">
-            <li onClick={() => handleClick("/app/funcionarios")}>Listar funcionários</li>
-          </Link>
-          <Link to="/app/cadastrar-funcionario">
-            <li onClick={() => handleClick("/app/cadastrar-funcionario")}>Cadastrar funcionário</li>
-          </Link>
-        </ul>
-        <div className="right-menu">
-          <button
-            className="material-symbols-outlined"
-            title="Configurações do Admin"
-            onClick={() => handleClick(`/app/settings/atualizar-login/user/${userInfo.id}`)}
-          >
-            settings
-          </button>
-          <button
-            className="material-symbols-outlined logout"
-            title="Sair"
-            onClick={() => logoutUser()}
-          >
-            logout
-          </button>
-        </div>
+        {userInfo?.isAdmin ? (
+          <>
+            <div
+              className="material-symbols-outlined tootle"
+              onClick={toggleMenu}
+            >
+              menu
+            </div>
+            <ul className={menuOpen ? "menu-visible" : "menu-hidden"}>
+              <Link to="/app/funcionarios">
+                <li onClick={() => handleClick("/app/funcionarios")}>
+                  Listar funcionários
+                </li>
+              </Link>
+              <Link to="/app/cadastrar-funcionario">
+                <li onClick={() => handleClick("/app/cadastrar-funcionario")}>
+                  Cadastrar funcionário
+                </li>
+              </Link>
+              <Link to="/app/cadastrar-usuario">
+                <li onClick={() => handleClick("/app/cadastrar-usuario")}>
+                  Criar usuário
+                </li>
+              </Link>
+            </ul>
+            <div className="right-menu">
+              <button
+                className="material-symbols-outlined"
+                title="Configurações do Admin"
+                onClick={() =>
+                  handleClick(
+                    `/app/settings/atualizar-login/user/${userInfo?.userId}`
+                  )
+                }
+              >
+                settings
+              </button>
+              <button
+                className="material-symbols-outlined logout"
+                title="Sair"
+                onClick={() => logoutUser()}
+              >
+                logout
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="right-menu" style={{ marginLeft: "auto" }}>
+              <button
+                className="material-symbols-outlined logout"
+                title="Sair"
+                onClick={() => logoutUser()}
+              >
+                logout
+              </button>
+            </div>
+          </>
+        )}
       </nav>
     </header>
   );
