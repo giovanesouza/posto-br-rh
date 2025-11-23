@@ -20,7 +20,7 @@ export const Header = () => {
   return (
     <header>
       <nav>
-        {userInfo.isAdmin ? (
+        {userInfo?.isAdmin ? (
           <>
             <div
               className="material-symbols-outlined tootle"
@@ -39,6 +39,11 @@ export const Header = () => {
                   Cadastrar funcionário
                 </li>
               </Link>
+              <Link to="/app/cadastrar-usuario">
+                <li onClick={() => handleClick("/app/cadastrar-usuario")}>
+                  Criar usuário
+                </li>
+              </Link>
             </ul>
             <div className="right-menu">
               <button
@@ -46,7 +51,7 @@ export const Header = () => {
                 title="Configurações do Admin"
                 onClick={() =>
                   handleClick(
-                    `/app/settings/atualizar-login/user/${userInfo.userId}`
+                    `/app/settings/atualizar-login/user/${userInfo?.userId}`
                   )
                 }
               >

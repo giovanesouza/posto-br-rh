@@ -3,11 +3,9 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import UnauthorizedImg from "../assets/error_401.png";
 
-export const ProtectedRoute = ({ children }) => {
+export const ProtectedRoute = ({ children, allowedProfiles = [] }) => {
+  
   const { userLogged, userInfo, isAdmin } = useContext(AuthContext);
-  const allowedProfiles = ["employee", "manager", "admin"];
-
-  console.log(userInfo.profile);
 
   if (!userLogged) return <Navigate to="/" />;
 

@@ -1,0 +1,46 @@
+.container-message-user {
+    background-color: var(--blue);
+    color: var(--white);
+    margin-bottom: 2rem;
+    line-height: 3rem;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 2rem;
+
+    & ol
+    {
+        font-weight: bold;
+        margin: .5rem 0;
+    }
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.text-decoration-underline {
+    text-decoration: underline;
+}
+
+span.warning {
+    background-color: var(--yellow);
+    color: var(--blue);
+    font-weight: bold;
+    padding: 0 .2rem;
+    border-radius: .5rem;
+}
+
+.input-group #select-user {
+    width: 100%;
+    font-size: 1.4rem;
+    padding: 1rem;
+    border: .1rem solid var(--light-gray);
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+}
+
+.employee-with-user {
+    /* background-color: var(--light-gray); */
+    background-color: #bcbcbc52;
+    color: var(--dark-gray);
+}
