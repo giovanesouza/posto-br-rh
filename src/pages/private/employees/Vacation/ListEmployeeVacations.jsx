@@ -51,7 +51,7 @@ export default function ListEmployeeVacations() {
     <>
       <ToastAnimated />
       <h1 style={{ marginBottom: "3rem" }} className="text-align-center">
-        Histórico de férias
+        Histórico de férias do(a) funcionário(a): <br /> {employee.name}
       </h1>
       <div className="table-wrapper">
         <table>

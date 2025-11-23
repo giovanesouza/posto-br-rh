@@ -10,6 +10,7 @@ import ListEmployeeVacations from "../pages/private/employees/Vacation/ListEmplo
 import EditVacation from "../pages/private/employees/Vacation/EditVacation";
 import { Footer } from "../components/footer/Footer";
 import Settings from "../pages/private/settings/Settings";
+import RegisterUser from "../pages/private/users/registeUser/RegisterUser";
 
 
 const PrivateRoutes = () => (
@@ -17,13 +18,14 @@ const PrivateRoutes = () => (
       <Header />
       <main>
         <Routes>
-          <Route path="/funcionarios" element={<ProtectedRoute><EmployeeList /></ProtectedRoute>} />
-          <Route path="/cadastrar-funcionario" element={<ProtectedRoute><RegisterEmployee /></ProtectedRoute>} />
-          <Route path="/editar-funcionario/:id" element={<ProtectedRoute><EditEmployee /></ProtectedRoute>} />
-          <Route path="/historico-de-ferias/funcionario/:id" element={<ProtectedRoute><ListEmployeeVacations /></ProtectedRoute>} />
-          <Route path="/cadastrar-ferias/funcionario/:id" element={<ProtectedRoute><RegisterVacation /></ProtectedRoute>} />
-          <Route path="/editar-ferias/:id" element={<ProtectedRoute><EditVacation /></ProtectedRoute>} />
-          <Route path="/settings/atualizar-login/user/:id" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+          <Route path="/funcionarios" element={<ProtectedRoute allowedProfiles={["admin"]}><EmployeeList /></ProtectedRoute>} />
+          <Route path="/cadastrar-funcionario" element={<ProtectedRoute allowedProfiles={["admin"]}><RegisterEmployee /></ProtectedRoute>} />
+          <Route path="/editar-funcionario/:id" element={<ProtectedRoute allowedProfiles={["admin"]}><EditEmployee /></ProtectedRoute>} />
+          <Route path="/historico-de-ferias/funcionario/:id" element={<ProtectedRoute allowedProfiles={["admin","employee"]}><ListEmployeeVacations /></ProtectedRoute>} />
+          <Route path="/cadastrar-ferias/funcionario/:id" element={<ProtectedRoute allowedProfiles={["admin"]}><RegisterVacation /></ProtectedRoute>} />
+          <Route path="/editar-ferias/:id" element={<ProtectedRoute allowedProfiles={["admin"]}><EditVacation /></ProtectedRoute>} />
+          <Route path="/cadastrar-usuario" element={<ProtectedRoute allowedProfiles={["admin"]}><RegisterUser /></ProtectedRoute>} />
+          <Route path="/settings/atualizar-login/user/:id" element={<ProtectedRoute allowedProfiles={["admin"]}><Settings /></ProtectedRoute>} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </main>
