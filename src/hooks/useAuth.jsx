@@ -58,9 +58,11 @@ const useAuth = () => {
 
         setUserLogged(true);
         setIsAdmin(response.isAdmin);
+        response.isAdmin ?
         navigate("/app/funcionarios", {
           state: `Olá, Admin. Seja bem vindo(a)!`,
-        });
+        }) :
+        navigate('/app/historico-de-ferias/funcionario/' + response.employeeId);
       }
     } catch (error) {
       throw error;
