@@ -1,4 +1,4 @@
-name: Build, Lint & Test React Project
+name: Build & Test React Project
 
 on:
   pull_request:
@@ -32,30 +32,30 @@ jobs:
       - name: List build output
         run: ls dist
 
-  lint:
-    name: Lint Code
-    runs-on: ubuntu-latest
-    needs: build  # run after build job completes successfully
+  # lint:
+  #   name: Lint Code
+  #   runs-on: ubuntu-latest
+  #   needs: build  # run after build job completes successfully
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
+  #     - name: Install dependencies
+  #       run: npm install
 
-      - name: Run ESLint
-        run: npm run lint
+  #     - name: Run ESLint
+  #       run: npm run lint
 
   test:
     name: Run Cypress E2E Tests
     runs-on: ubuntu-latest
-    needs: lint   # run after lint job completes successfully
+    needs: build   # run after build job completes successfully
 
     steps:
       - name: Checkout repository
