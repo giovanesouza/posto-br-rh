@@ -1,0 +1,49 @@
+[
+  {
+    "id": "897c63ed-680a-44b5-bcd2-7b442afc149b",
+    "positionId": null,
+    "name": "Pedro Henrique Ferreira Silva",
+    "cpf": "111.222.333-44",
+    "admissionDate": "2024-05-06T00:00:00.000Z",
+    "isPendingVacation": false,
+    "createdAt": "2025-05-06T00:41:00.000Z",
+    "updatedAt": "2025-11-24T00:41:00.000Z",
+    "vacations": [],
+    "user": null
+  },
+  {
+    "id": "987c63ed-670a-44b5-bcd2-7b452afc148b",
+    "positionId": null,
+    "name": "Maria Clara Souza Oliveira",
+    "cpf": "222.333.444-55",
+    "admissionDate": "2024-03-15T00:00:00.000Z",
+    "isPendingVacation": true,
+    "createdAt": "2024-03-15T00:41:00.000Z",
+    "updatedAt": "2025-11-24T00:41:00.000Z",
+    "vacations": [
+      {
+        "id": "5e8a8082-7fc6-45ba-b4eb-130f91dc27ba",
+        "employeeId": "44b7c7e8-f2cb-4f21-9782-d56b0716b245",
+        "isVacationSold": false,
+        "soldDays": 0,
+        "startDate": "2024-02-12T00:00:00.000Z",
+        "endDate": "2024-03-12T00:00:00.000Z",
+        "createdAt": "2025-05-20T02:38:11.771Z",
+        "updatedAt": "2025-05-20T02:38:11.771Z"
+      }
+    ],
+    "user": null
+  },
+  {
+    "id": "397c63ed-680a-44b5-bcd3-7b443afc159b",
+    "positionId": null,
+    "name": "João Paulo Souza Ferreira",
+    "cpf": "333.444.555-66",
+    "admissionDate": "2025-11-10T00:00:00.000Z",
+    "isPendingVacation": false,
+    "createdAt": "2025-11-10T00:41:00.000Z",
+    "updatedAt": "2025-11-24T00:41:00.000Z",
+    "vacations": [],
+    "user": null
+  }
+]
