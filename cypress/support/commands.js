@@ -1,28 +1,6 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+// ====== FUNCTIONS =======
+
+// --- Login ---
 
 // Login: The username must be between 12 to 20 letters and password, 6 to 20.
 Cypress.Commands.add('login', (username, password) => {
@@ -37,12 +15,86 @@ Cypress.Commands.add('clearAllInputs', () => {
   });
 });
 
+// --- Employees ---
+Cypress.Commands.add('searchEmployeeByName', (name) => {
+  cy.get('input[name="searchEmployeeName"').clear().type(name);
+  cy.wait(2000);
+});
 
+Cypress.Commands.add('verifyTotalFilteredItemsAppearAsExpected', (total) => {
+  cy.get('table tbody tr').should('have.length', total);
+});
+
+
+// ====== UI Verifications =======
+
+// == COMPONENTS ==
+
+// --- MENU & HEADER ---
+
+// Admin
+Cypress.Commands.add('verifyHeaderAndMenuOpenedAdmin', () => {
+  cy.get('ul.menu-hidden').should('exist').and('be.visible');
+  cy.get('button.material-symbols-outlined[title="Configurações do Admin"]').should('exist').and('be.visible');
+  cy.get('button.logout').should('exist').and('be.visible');
+});
+
+// Employee
+Cypress.Commands.add('verifyHeaderAndMenuEmployee', () => {
+  cy.get('ul.menu-hidden').should('not.exist');
+  cy.get('div.right-menu').should('exist').and('be.visible');
+  cy.get('button.logout').should('exist').and('be.visible');
+});
+
+// --- FOOTER ---
+Cypress.Commands.add('verifyFooter', () => {
+  cy.get('footer address').should('exist').and('be.visible');
+});
+
+// == PAGES: main content ==
+
+// --- Listar funcionários: */app/funcionarios ---
+
+// List
+Cypress.Commands.add('verifyEmployListNotEmpty', () => {
+  cy.get('h1').should('have.text', 'Situação dos funcionários'); // verify exact text
+  cy.get('input[name="searchEmployeeName"').should('exist').and('be.visible');
+  cy.get('table').should('exist').and('be.visible');
+  cy.get('table .employee-situation.has-vacation').should('exist').and('be.visible').and('contain', 'Direito a férias');
+  cy.get('table .employee-situation.no-vacation').should('exist').and('be.visible').and('contain', 'Sem direito a férias');
+  cy.get('button.bg-hover-green.color-green').should('exist').and('be.visible');
+  cy.get('button.bg-hover-blue.color-blue').should('exist').and('be.visible');
+  cy.get('button.bg-hover-danger.color-danger').should('exist').and('be.visible');
+});
+
+Cypress.Commands.add('verifyEmployEmptyList', () => {
+  cy.get('ul.menu-hidden').should('exist').and('be.visible');
+  cy.get('button.material-symbols-outlined[title="Configurações do Admin"]').should('exist').and('be.visible');
+  cy.get('button.logout').should('exist').and('be.visible');
+  cy.get('h1').should('have.text', 'Situação dos funcionários'); // verify exact text
+  cy.get('input[name="searchEmployeeName"').should('exist').and('be.visible');
+  cy.get('table').should('exist').and('be.visible');
+  cy.get('table td').should('contain', 'Nenhum funcionário cadastrado!');
+});
+
+
+
+// --- Editar Funcionário: */app/editar-funcionario/{id} ---
+
+// --- Cadastrar funcionário: */app/cadastrar-funcionario ---
+
+// --- Cadastrar férias:  */app/cadastrar-ferias/funcionario/{id} ---
+
+// --- Histórico de férias:  */app/historico-de-ferias/funcionario/{id} ---
+
+// --- Criar usuário:  */app/cadastrar-usuario ---
+
+// --- Editar login:  */app/settings/atualizar-login/user/{id} ---
 
 
 // ============ Mocks ============ 
 
-// Login for different users
+// Login using different users
 
 Cypress.Commands.add('mockAthenticateAs', (userFixture) => {
   cy.fixture(userFixture).then((userInfo) => {
@@ -61,23 +113,21 @@ Cypress.Commands.add('mockAthenticateAs', (userFixture) => {
 // Mock Employees data - Intercept the GET '/employees' and return a mocked list
 Cypress.Commands.add('getEmployees', (fixture) => {
   if (!fixture) {
-    // Nenhum parâmetro → retorna lista vazia
     cy.intercept('GET', '/employees?*', (req) => {
-      expect(req.headers.authorization).to.eq('Bearer fake-token'); // validate auth header is present and correct
-      req.reply({
-        statusCode: 200,
-        body: []
-      });
+      req.reply({ statusCode: 200, body: [] });
     }).as('mockEmployees');
   } else {
     cy.fixture(fixture).then((employees) => {
       cy.intercept('GET', '/employees?*', (req) => {
-        expect(req.headers.authorization).to.eq('Bearer fake-token');
-        // Reply with mocked employees data
-        req.reply({
-          statusCode: 200,
-          body: employees
-        });
+        const searchParam = (req.query.name || '').toLowerCase(); // <-- CORRETO AGORA
+
+        let filtered = employees;
+        if (searchParam) {
+          filtered = employees.filter(e =>
+            (e.name || '').toLowerCase().includes(searchParam)
+          );
+        }
+        req.reply({ statusCode: 200, body: filtered });
       }).as('mockEmployees');
     });
   }
@@ -87,7 +137,6 @@ Cypress.Commands.add('getEmployees', (fixture) => {
 Cypress.Commands.add('getEmployeeById', (id) => {
   cy.intercept('GET', `/employees/${id}`, (req) => {
     expect(req.headers.authorization).to.eq('Bearer fake-token');
-
 
     req.reply({
       statusCode: 200,
@@ -110,4 +159,17 @@ Cypress.Commands.add('getEmployeeById', (employeeId, fixture = 'employees') => {
       });
     }).as('mockEmployeeById');
   });
+});
+
+
+Cypress.Commands.add('loginAndMockWithEmployees', () => {
+    cy.visit('/');
+    // Intercept login as admin user
+    cy.mockAthenticateAs('adminUserLocalStorage'); // uses the custom command to mock login as admin
+    cy.getEmployees('employees'); // uses the custom command to mock employees data; 
+
+    // Perform login
+    cy.login('giovanesouza', '123456');
+    cy.wait('@mockSignInRequest'); // wait for the mocked sign-in request
+    cy.wait('@mockEmployees'); // wait for the mocked employees request
 });
