@@ -48,20 +48,6 @@ Cypress.Commands.add('fillInput', (selector, value) => {
   cy.get(selector).should('exist').and('be.visible').clear().type(value)
 });
 
-// Cypress commands are asynchronous and do not return values directly.
-// Even if this command returns a string internally, Cypress wraps it in a chainable,
-// so calling cy.todayBR() inside another command (e.g., cy.fillInput(..., cy.todayBR()))
-// will NOT pass the string to the input. To use the generated date, you must call
-// cy.todayBR().then(value => { ... }) or convert todayBR into a normal JS function instead.
-Cypress.Commands.add('todayBR', (num = '') => {
-  const d = new Date()
-  const day = String(d.getDate()).padStart(2, '0')
-  const month = String(d.getMonth() + 1).padStart(2, '0')
-  const year = d.getFullYear()
-  return `${day}${month}${year}${num}`
-});
-
-
 
 // ====== UI Verifications =======
 
