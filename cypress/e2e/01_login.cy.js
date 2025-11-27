@@ -12,13 +12,13 @@ describe('Login', () => {
   it('2. Should show error when submitting empty fields', () => {
     cy.get('button[type=submit]').click();
     cy.wait(2000); // wait to visually confirm the error message
-    cy.get('div').should('contain', 'Verifique se os campos foram preenchidos corretamente');
+    cy.verifyErrorToast('Verifique se os campos foram preenchidos corretamente');
   });
 
   it('3. Invalid data: Should display error message', () => {
     cy.login('usuario_teste', '123456');
     cy.wait(2000); // wait to visually confirm the error message
-    cy.get('div').should('contain', 'Verifique se os campos foram preenchidos corretamente');
+    cy.verifyErrorToast('Verifique se os campos foram preenchidos corretamente');
   });
 
   it('4. Admin should authenticate and view an empty employees list', () => {
@@ -34,7 +34,7 @@ describe('Login', () => {
     // Verify redirection to the correct route
     cy.url().should('include', '/app/funcionarios');
     cy.wait(2000); // wait to visually success message
-    cy.get('div').should('contain', 'Olá, Admin. Seja bem vindo(a)!');
+    cy.verifySuccessToast('Olá, Admin. Seja bem vindo(a)!');
     cy.get('button.Toastify__close-button').click();
     cy.wait(2000);
 
@@ -48,7 +48,7 @@ describe('Login', () => {
     // Verify redirection to the correct route
     cy.url().should('include', '/app/funcionarios');
     cy.wait(2000); // wait to visually success message
-    cy.get('div').should('contain', 'Olá, Admin. Seja bem vindo(a)!');
+    cy.verifySuccessToast('Olá, Admin. Seja bem vindo(a)!');
     cy.get('button.Toastify__close-button').click();
     cy.wait(2000);
     
