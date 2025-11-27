@@ -15,6 +15,21 @@ Cypress.Commands.add('clearAllInputs', () => {
   });
 });
 
+
+// --- Navigation between menu items ---
+
+// by text
+Cypress.Commands.add('accessMenu', (text) => {
+  cy.contains('li', text).click()
+})
+
+
+// by ref. (route)
+Cypress.Commands.add('accessHref', (href) => {
+  cy.get(`a[href="${href}"]`).click()
+})
+
+
 // --- Employees ---
 Cypress.Commands.add('searchEmployeeByName', (name) => {
   cy.get('input[name="searchEmployeeName"').clear().type(name);
@@ -25,16 +40,51 @@ Cypress.Commands.add('verifyTotalFilteredItemsAppearAsExpected', (total) => {
   cy.get('table tbody tr').should('have.length', total);
 });
 
+Cypress.Commands.add('submitForm', () => {
+  cy.get('button[type="submit"]').click();
+});
+
+Cypress.Commands.add('fillInput', (selector, value) => {
+  cy.get(selector).should('exist').and('be.visible').clear().type(value)
+});
+
+// Cypress commands are asynchronous and do not return values directly.
+// Even if this command returns a string internally, Cypress wraps it in a chainable,
+// so calling cy.todayBR() inside another command (e.g., cy.fillInput(..., cy.todayBR()))
+// will NOT pass the string to the input. To use the generated date, you must call
+// cy.todayBR().then(value => { ... }) or convert todayBR into a normal JS function instead.
+Cypress.Commands.add('todayBR', (num = '') => {
+  const d = new Date()
+  const day = String(d.getDate()).padStart(2, '0')
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const year = d.getFullYear()
+  return `${day}${month}${year}${num}`
+});
+
+
 
 // ====== UI Verifications =======
 
 // == COMPONENTS ==
+
+// --- Pop up messages ---
+
+Cypress.Commands.add('verifyErrorToast', (text) => {
+  cy.get('.Toastify__toast--error[role="alert"]', { timeout: 10000 }).last().should('be.visible').and('contain.text', text)
+})
+
+Cypress.Commands.add('verifySuccessToast', (text) => {
+  cy.get('.Toastify__toast--success[role="alert"]', { timeout: 10000 }).last().should('be.visible').and('contain.text', text)
+})
 
 // --- MENU & HEADER ---
 
 // Admin
 Cypress.Commands.add('verifyHeaderAndMenuOpenedAdmin', () => {
   cy.get('ul.menu-hidden').should('exist').and('be.visible');
+  cy.get('a[href="/app/funcionarios"] li').should('contain', 'Listar funcionários')
+  cy.get('a[href="/app/cadastrar-funcionario"] li').should('contain', 'Cadastrar funcionário')
+  cy.get('a[href="/app/cadastrar-usuario"] li').should('contain', 'Criar usuário')
   cy.get('button.material-symbols-outlined[title="Configurações do Admin"]').should('exist').and('be.visible');
   cy.get('button.logout').should('exist').and('be.visible');
 });
@@ -50,6 +100,7 @@ Cypress.Commands.add('verifyHeaderAndMenuEmployee', () => {
 Cypress.Commands.add('verifyFooter', () => {
   cy.get('footer address').should('exist').and('be.visible');
 });
+
 
 // == PAGES: main content ==
 
@@ -79,9 +130,20 @@ Cypress.Commands.add('verifyEmployEmptyList', () => {
 
 
 
+// --- Cadastrar funcionário: */app/cadastrar-funcionario ---
+Cypress.Commands.add('verifyElementsFromRegisterEmployee', () => {
+  cy.get('h1').should('exist').and('be.visible').and('have.text', 'Cadastrar funcionário');
+  cy.get('label[for="employeeName"]').should('exist').and('be.visible').and('have.text', 'Nome:');
+  cy.get('input#employeeName').should('exist').and('be.visible');
+  cy.get('label[for="cpf').should('exist').and('be.visible').and('have.text', 'CPF:');
+  cy.get('input#cpf').should('exist').and('be.visible');
+  cy.get('label[for="admissionDate"]').should('exist').and('be.visible').and('have.text', 'Data de Admissão:');
+  cy.get('input#admissionDate').should('exist').and('be.visible');
+  cy.get('button[type="submit"]').should('exist').and('be.visible');
+});
+
 // --- Editar Funcionário: */app/editar-funcionario/{id} ---
 
-// --- Cadastrar funcionário: */app/cadastrar-funcionario ---
 
 // --- Cadastrar férias:  */app/cadastrar-ferias/funcionario/{id} ---
 
@@ -163,13 +225,25 @@ Cypress.Commands.add('getEmployeeById', (employeeId, fixture = 'employees') => {
 
 
 Cypress.Commands.add('loginAndMockWithEmployees', () => {
-    cy.visit('/');
-    // Intercept login as admin user
-    cy.mockAthenticateAs('adminUserLocalStorage'); // uses the custom command to mock login as admin
-    cy.getEmployees('employees'); // uses the custom command to mock employees data; 
+  cy.visit('/');
+  // Intercept login as admin user
+  cy.mockAthenticateAs('adminUserLocalStorage'); // uses the custom command to mock login as admin
+  cy.getEmployees('employees'); // uses the custom command to mock employees data; 
 
-    // Perform login
-    cy.login('giovanesouza', '123456');
-    cy.wait('@mockSignInRequest'); // wait for the mocked sign-in request
-    cy.wait('@mockEmployees'); // wait for the mocked employees request
+  // Perform login
+  cy.login('giovanesouza', '123456');
+  cy.wait('@mockSignInRequest'); // wait for the mocked sign-in request
+  cy.wait('@mockEmployees'); // wait for the mocked employees request
 });
+
+
+Cypress.Commands.add('mockEmployees', (employeeData) => {
+  cy.intercept('POST', '/employees', (req) => {
+    expect(req.headers.authorization).to.eq('Bearer fake-token') // ou JWT válido
+
+    req.reply({
+      statusCode: 200,
+      body: { message: 'Usuário criado com sucesso!', data: employeeData }
+    })
+  }).as('mockEmployees')
+})
