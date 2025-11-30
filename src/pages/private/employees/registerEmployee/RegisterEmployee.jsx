@@ -21,7 +21,7 @@ export default function RegisterEmployee() {
     admissionDate: "",
   });
 
-  const formatValue = (name, value, type) => {
+  const formatValue = (name, value) => {
     if (name === "cpf") {
       return formatCPF(value);
     }
@@ -61,6 +61,10 @@ export default function RegisterEmployee() {
     }
     if (!isValidCPF) {
       showToast({ type: "error", message: "CPF inválido!" });
+      return;
+    }
+    if (!fieldValue.admissionDate) {
+      showToast({ type: "error", message: "O campo data de admissão é obrigatório!" });
       return;
     }
 
