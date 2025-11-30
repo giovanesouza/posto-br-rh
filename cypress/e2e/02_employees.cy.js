@@ -52,7 +52,7 @@ describe('Employees', () => {
     it('7. Should check if it is possible to register an employee with only ONE name', () => {
         cy.loginAndMockWithEmployees();
         cy.accessMenu('Cadastrar funcionário');
-        cy.fillInput(selectors.inputs.employeeName, newEmployee.split(' ')[0]);
+        cy.fillInput(selectors.inputs.employeeName, newEmployee.name.split(' ')[0]);
         cy.submitForm();
         cy.verifyErrorToast('Nome inválido!');
     });
