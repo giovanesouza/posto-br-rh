@@ -1,22 +1,25 @@
+import { selectors } from '../support/selectors';
+import { adminUser, employeeUser, employeeUserWithVacation, invalidUser } from '../support/utils';
+
 describe('Login', () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
   it('1. Should display login fields', () => {
-    cy.get('input[name=username]').should('be.visible');
-    cy.get('input[name=password]').should('be.visible');
-    cy.get('button[type=submit]').should('contain', 'Entrar');
+    cy.get(selectors.login.username).should('be.visible');
+    cy.get(selectors.login.password).should('be.visible');
+    cy.get(selectors.login.submitBtn).should('contain', 'Entrar');
   });
 
   it('2. Should show error when submitting empty fields', () => {
-    cy.get('button[type=submit]').click();
+    cy.get(selectors.login.submitBtn).click();
     cy.wait(2000); // wait to visually confirm the error message
     cy.verifyErrorToast('Verifique se os campos foram preenchidos corretamente');
   });
 
   it('3. Invalid data: Should display error message', () => {
-    cy.login('usuario_teste', '123456');
+    cy.login(invalidUser.username, invalidUser.password);
     cy.wait(2000); // wait to visually confirm the error message
     cy.verifyErrorToast('Verifique se os campos foram preenchidos corretamente');
   });
@@ -27,7 +30,7 @@ describe('Login', () => {
     cy.getEmployees(); // when without parameter, return an empty employees list
 
     // Perform login
-    cy.login('giovanesouza', '123456');
+    cy.login(adminUser.username, adminUser.password);
     cy.wait('@mockSignInRequest'); // wait for the mocked sign-in request
     cy.wait('@mockEmployees'); // wait for the mocked employees request
 
@@ -35,7 +38,7 @@ describe('Login', () => {
     cy.url().should('include', '/app/funcionarios');
     cy.wait(2000); // wait to visually success message
     cy.verifySuccessToast('Olá, Admin. Seja bem vindo(a)!');
-    cy.get('button.Toastify__close-button').click();
+    cy.get(selectors.toasts.closeBtn).click();
     cy.wait(2000);
 
     cy.verifyEmployEmptyList();
@@ -49,7 +52,7 @@ describe('Login', () => {
     cy.url().should('include', '/app/funcionarios');
     cy.wait(2000); // wait to visually success message
     cy.verifySuccessToast('Olá, Admin. Seja bem vindo(a)!');
-    cy.get('button.Toastify__close-button').click();
+    cy.get(selectors.toasts.closeBtn).click();
     cy.wait(2000);
     
     cy.verifyHeaderAndMenuOpenedAdmin();
@@ -65,7 +68,7 @@ describe('Login', () => {
     cy.getEmployeeById(employeeId); // uses the custom command to mock employee by ID data
 
     // Perform login
-    cy.login('pedrohenrique', '123456');
+    cy.login(employeeUser.username, employeeUser.password);
     cy.wait('@mockSignInRequest'); // wait for the mocked sign-in request
     
     // Verify redirection to the correct route
@@ -73,9 +76,9 @@ describe('Login', () => {
     cy.wait('@mockEmployeeById'); // wait for the mocked employee by ID request
 
     cy.verifyHeaderAndMenuEmployee();
-    cy.get('h1.text-align-center').should('contain', 'Histórico de férias do(a) funcionário(a): ').and('contain', 'Pedro Henrique Ferreira Silva'); // verify partial text
-    cy.get('table').should('exist').and('be.visible');
-    cy.get('table td').should('contain', 'Nenhuma férias cadastrada!');
+    cy.get(selectors.headers.pageTitle).should('contain', 'Histórico de férias do(a) funcionário(a): ').and('contain', 'Pedro Henrique Ferreira Silva'); // verify partial text
+    cy.get(selectors.employeeList.table).should('exist').and('be.visible');
+    cy.get(selectors.employeeList.emptyMessage).should('contain', 'Nenhuma férias cadastrada!');
     cy.verifyFooter();
   });
 
@@ -88,7 +91,7 @@ describe('Login', () => {
     cy.getEmployeeById(employeeId); // uses the custom command to mock employee by ID data
 
     // Perform login
-    cy.login('mariaoliveira', '123456');
+    cy.login(employeeUserWithVacation.username, employeeUserWithVacation.password);
     cy.wait('@mockSignInRequest'); // wait for the mocked sign-in request
     
     // Verify redirection to the correct route
@@ -96,9 +99,9 @@ describe('Login', () => {
     cy.wait('@mockEmployeeById'); // wait for the mocked employee by ID request
 
     cy.verifyHeaderAndMenuEmployee();
-    cy.get('h1.text-align-center').should('contain', 'Histórico de férias do(a) funcionário(a): ').and('contain', 'Maria Clara Souza Oliveira'); // verify partial text
-    cy.get('table').should('exist').and('be.visible');
-    cy.get('table td').should('not.contain', 'Nenhuma férias cadastrada!');
+    cy.get(selectors.headers.pageTitle).should('contain', 'Histórico de férias do(a) funcionário(a): ').and('contain', 'Maria Clara Souza Oliveira'); // verify partial text
+    cy.get(selectors.employeeList.table).should('exist').and('be.visible');
+    cy.get(selectors.employeeList.emptyMessage).should('not.contain', 'Nenhuma férias cadastrada!');
     cy.verifyFooter();
   });
 
