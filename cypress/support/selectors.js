@@ -10,9 +10,9 @@ export const selectors = {
   inputs: {
     allInputs: 'input',
     searchEmployeeName: 'input[name="searchEmployeeName"]',
-    employeeName: '#employeeName',
-    cpf: '#cpf',
-    admissionDate: '#admissionDate'
+    employeeName: 'input#employeeName',
+    cpf: 'input#cpf',
+    admissionDate: 'input#admissionDate'
   },
 
   // ====== BUTTONS ======
