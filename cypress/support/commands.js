@@ -179,7 +179,7 @@ Cypress.Commands.add('createEmployeeMock', (employeeData) => {
       body: { id: '987c36ed-681a-45b4-bdc4-7b442afc149b', ...employeeData }
     })
   }).as('mockCreateEmployee')
-})
+});
 
 // Mock GET /employees
 Cypress.Commands.add('getEmployees', (fixture) => {
