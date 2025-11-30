@@ -45,5 +45,17 @@
     "updatedAt": "2025-11-24T00:41:00.000Z",
     "vacations": [],
     "user": null
+  },
+  {
+    "id": "397c63ed-690a-55b5-bcd3-7b553afc159b",
+    "positionId": null,
+    "name": "Débora Heloisa Fabiana Mendes",
+    "cpf": "490.669.837-95",
+    "admissionDate": "2025-11-10T00:00:00.000Z",
+    "isPendingVacation": false,
+    "createdAt": "2025-11-10T00:41:00.000Z",
+    "updatedAt": "2025-11-24T00:41:00.000Z",
+    "vacations": [],
+    "user": null
   }
 ]

@@ -73,7 +73,11 @@ jobs:
         run: npm run test:e2e
 
       - name: Upload Cypress artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cypress-artifacts
-          path: cypress/videos/**/*
+          path: |
+            cypress/videos/**/*
+            cypress/screenshots/**
+
