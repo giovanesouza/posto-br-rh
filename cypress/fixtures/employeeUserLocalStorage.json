@@ -2,6 +2,6 @@
   "employeeId": "897c63ed-680a-44b5-bcd2-7b442afc149b",
   "isAdmin": false,
   "profile": "employee",
-  "token": "fake-token",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmOWZjZTI0Ni1hMzYzLTRmMDAtYmZkMi05YWVkNjM3OGQ3NzEiLCJwcm9maWxlIjpudWxsLCJlbXBsb3llZUlkIjoiODk3YzYzZWQtNjgwYS00NGI1LWJjZDItN2I0NDJhZmMxNDliIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzY0NDY0NTQ0LCJleHAiOjMxNzMwODkwNjk0NH0.uA_IYX5PugDR00amOtqwOFWF0Gff-qDu8w9c56x1HGE",
   "userId": "f9fce246-a363-4f00-bfd2-9aed6378d771"
 }
