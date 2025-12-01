@@ -45,5 +45,23 @@
     "updatedAt": "2025-11-24T00:41:00.000Z",
     "vacations": [],
     "user": null
+  },
+  {
+    "id": "897c36ed-860a-44b5-bcd2-7b552afc149b",
+    "positionId": null,
+    "name": "Giovane Souza",
+    "cpf": "685.159.876-00",
+    "admissionDate": "2025-08-10T00:00:00.000Z",
+    "isPendingVacation": false,
+    "createdAt": "2025-08-10T00:41:00.000Z",
+    "updatedAt": "2025-09-24T00:41:00.000Z",
+    "vacations": [],
+    "user": {
+      "id": "f9fce246-a363-4f00-bfd2-9aed6378d771",
+      "username": "giovanesouza",
+      "password": "123456",
+      "isAdmin": true,
+      "profile": "admin"
+    }
   }
 ]

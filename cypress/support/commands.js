@@ -10,12 +10,12 @@ Cypress.Commands.add('login', (username, password) => {
   cy.get(selectors.login.username).type(username)
   cy.get(selectors.login.password).type(password)
   cy.get(selectors.login.submitBtn).click()
-})
+});
 
 // Clear all input fields
 Cypress.Commands.add('clearAllInputs', () => {
   cy.get(selectors.inputs.allInputs).each(($el) => cy.wrap($el).clear())
-})
+});
 
 
 // =========================
@@ -25,12 +25,12 @@ Cypress.Commands.add('clearAllInputs', () => {
 // Navigate using menu text
 Cypress.Commands.add('accessMenu', (text) => {
   cy.contains('li', text).click()
-})
+});
 
 // Navigate using href
 Cypress.Commands.add('accessHref', (href) => {
   cy.get(`a[href="${href}"]`).click()
-})
+});
 
 
 // =========================
@@ -40,20 +40,27 @@ Cypress.Commands.add('accessHref', (href) => {
 Cypress.Commands.add('searchEmployeeByName', (name) => {
   cy.get(selectors.inputs.searchEmployeeName).clear().type(name)
   cy.wait(2000)
-})
+});
 
-Cypress.Commands.add('verifyTotalFilteredItemsAppearAsExpected', (total) => {
-  cy.get(selectors.employeeList.tableRows).should('have.length', total)
-})
+Cypress.Commands.add('verifyTotalFilteredItemsAppearAsExpected', (total) => cy.get(selectors.employeeList.tableRows).should('have.length', total));
 
-Cypress.Commands.add('submitForm', () => {
-  cy.get(selectors.buttons.submit).click()
-})
+Cypress.Commands.add('selectVacationHistoryButton', (employeeName) => {
+  cy.contains('tbody tr', employeeName).click().parent('tr').within(() => {
+    cy.get('button[title="Exibir histórico de férias"]').click({ force: true });
+  });
+});
+
+Cypress.Commands.add('selectVacationHistoryButton', (employeeName) => {
+  cy.contains('tbody tr', employeeName).within(() => {
+    cy.get('button[title="Exibir histórico de férias"]').click({ force: true });
+  });
+});
+
+
+Cypress.Commands.add('submitForm', () => cy.get(selectors.buttons.submit).click());
 
 // Fill any input by selector
-Cypress.Commands.add('fillInput', (selector, value) => {
-  cy.get(selector).should('exist').and('be.visible').clear().type(value)
-})
+Cypress.Commands.add('fillInput', (selector, value) => cy.get(selector).should('exist').and('be.visible').clear().type(value));
 
 
 // =========================
@@ -64,13 +71,13 @@ Cypress.Commands.add('verifyErrorToast', (text) => {
   cy.get(selectors.toasts.error, { timeout: 8000 })
     .should('be.visible')
     .and('contain.text', text)
-})
+});
 
 Cypress.Commands.add('verifySuccessToast', (text) => {
   cy.get(selectors.toasts.success, { timeout: 8000 })
     .should('be.visible')
     .and('contain.text', text)
-})
+});
 
 
 // =========================
@@ -84,13 +91,13 @@ Cypress.Commands.add('verifyHeaderAndMenuOpenedAdmin', () => {
   cy.get(selectors.menu.createUser).should('contain', 'Criar usuário')
   cy.get(selectors.buttons.adminSettings).should('exist').and('be.visible')
   cy.get(selectors.buttons.logout).should('exist').and('be.visible')
-})
+});
 
 Cypress.Commands.add('verifyHeaderAndMenuEmployee', () => {
   cy.get(selectors.menu.sidebar).should('not.exist')
   cy.get(selectors.menu.rightMenu).should('exist').and('be.visible')
   cy.get(selectors.buttons.logout).should('exist').and('be.visible')
-})
+});
 
 
 // =========================
@@ -99,7 +106,7 @@ Cypress.Commands.add('verifyHeaderAndMenuEmployee', () => {
 
 Cypress.Commands.add('verifyFooter', () => {
   cy.get(selectors.footer.address).should('exist').and('be.visible')
-})
+});
 
 
 // =========================
@@ -115,7 +122,7 @@ Cypress.Commands.add('verifyEmployListNotEmpty', () => {
   cy.get(selectors.buttons.editBtn).should('be.visible')
   cy.get(selectors.buttons.viewBtn).should('be.visible')
   cy.get(selectors.buttons.deleteBtn).should('be.visible')
-})
+});
 
 Cypress.Commands.add('verifyEmployEmptyList', () => {
   cy.get(selectors.menu.sidebar).should('exist')
@@ -125,7 +132,7 @@ Cypress.Commands.add('verifyEmployEmptyList', () => {
   cy.get(selectors.inputs.searchEmployeeName).should('exist')
   cy.get(selectors.employeeList.table).should('be.visible')
   cy.get(selectors.employeeList.emptyMessage).should('contain', 'Nenhum funcionário cadastrado!')
-})
+});
 
 
 // =========================
@@ -149,24 +156,76 @@ Cypress.Commands.add('verifyElementsFromRegisterAndEditEmployee', () => {
   cy.get(selectors.inputs.admissionDate).should('be.visible')
 
   cy.get(selectors.buttons.submit).should('be.visible')
-})
+});
 
+// =========================
+//   VACATION REGISTRATION PAGE
+// =========================
+
+// Verify all required elements on Vacation Registration Page
+Cypress.Commands.add('verifyVacationRegistrationPage', () => {
+  cy.get(selectors.headers.pageTitle).should('be.visible').and('contain.text', 'Cadastrar férias');
+  cy.get(selectors.vacationHistory.isVacationSold).should('exist').and('be.visible');
+  cy.get(selectors.vacationHistory.soldDays).should('exist').and('be.visible').and('have.attr', 'disabled');
+  cy.get(selectors.vacationHistory.startDate).should('exist').and('be.visible');
+  cy.get(selectors.vacationHistory.endDate).should('exist').and('be.visible').and('have.attr', 'readonly');
+  cy.get(selectors.vacationHistory.submitBtn).should('exist').and('be.visible');
+});
+
+
+// =========================
+//      CREATE USER PAGE
+// =========================
+
+// Verify all required elements on Create User Page
+Cypress.Commands.add('verifyCreateUserPage', () => {
+  cy.get(selectors.headers.pageTitle).should('be.visible').and('contain.text', 'Cadastrar Login Para Funcionário');
+  cy.get(selectors.createUser.containerMessage).should('exist').and('be.visible');
+  cy.get(selectors.createUser.employeeSelect).should('exist').and('be.visible');
+  cy.get(selectors.createUser.usernameInput).should('exist').and('be.visible').and('have.attr', 'minlength', '12').and('have.attr', 'maxlength', '20');
+  cy.get(selectors.createUser.passwordInput).should('exist').and('be.visible').and('have.attr', 'disabled');
+  cy.get(selectors.createUser.submitBtn).should('exist').and('be.visible');
+});
+
+Cypress.Commands.add('selectOption', (selectSelector, optionValueOrText) => {
+  cy.get(selectSelector).select(optionValueOrText);
+});
+
+
+
+// =========================
+//        EDIT USER PAGE
+// =========================
+
+// Verify all required elements on Edit User Page
+Cypress.Commands.add('verifyEditUserPage', () => {
+  cy.get(selectors.headers.pageTitle).should('exist').and('be.visible').and('contain.text', 'Editar login');
+  cy.get(selectors.editUser.usernameInput).should('exist').and('be.visible').and('have.attr', 'minlength', '12').and('have.attr', 'maxlength', '20');
+  cy.get(selectors.editUser.passwordInput).should('exist').and('be.visible').and('have.attr', 'maxlength', '20');
+  cy.get(selectors.editUser.infoAlert).should('exist').and('be.visible').and('contain.text', 'Caso não queira mudar a senha');
+  cy.get(selectors.editUser.submitBtn).should('exist').and('be.visible');
+});
+
+Cypress.Commands.add('verifyInputValue', (selector, expectedValue) => {
+  cy.get(selector).should('have.value', expectedValue);
+});
+
+
+// =================================================
+//        NOT FOUND AND UNAUTHORIZED PAGES
+// ==================================================
+
+Cypress.Commands.add('verifyNotFoundPage', () => {
+  cy.get(selectors.errors.notFoundImg).shoud('exist').and('be.visible');
+});
+
+Cypress.Commands.add('verifyUnauthorizedAccessPage', () => {
+  cy.get(selectors.errors.unauthorizedImg).shoud('exist').and('be.visible');
+});
 
 // =========================
 //         MOCKS
 // =========================
-
-// Mock login as any user fixture
-Cypress.Commands.add('mockAthenticateAs', (userFixture) => {
-  cy.fixture(userFixture).then((userInfo) => {
-    cy.intercept('POST', '/sign-in', {
-      statusCode: 200,
-      body: userInfo
-    }).as('mockSignInRequest')
-
-    cy.window().its('localStorage').invoke('setItem', 'userInfo', JSON.stringify(userInfo))
-  })
-})
 
 // Mock POST /employees
 Cypress.Commands.add('createEmployeeMock', (employeeData) => {
@@ -197,24 +256,23 @@ Cypress.Commands.add('getEmployees', (fixture) => {
       }).as('mockEmployees')
     })
   }
-})
+});
 
 // Mock GET /employees/:id
 Cypress.Commands.add('getEmployeeById', (employeeId, fixture = 'employees') => {
   cy.fixture(fixture).then((employees) => {
     const employee = employees.find(e => e.id === employeeId)
 
-    cy.intercept('GET', `/employees/${employeeId}`, {
-      statusCode: 200,
-      body: employee || {}
-    }).as('mockEmployeeById')
+    cy.intercept({ method: 'GET', url: `/employees/${employeeId}` },
+      { statusCode: 200, body: employee || {} }
+    ).as('mockEmployeeById')
   })
-})
+});
 
 // Mock DELETE /employees/:id
 Cypress.Commands.add('deleteEmployeeById', (id, hasVacation = false) => {
   cy.intercept('DELETE', `/employees/${id}`, (req) => {
-    expect(req.headers.authorization).to.eq(`Bearer ${token}`)
+    expect(req.headers.authorization).to.eq(`Bearer ${token}`);
 
     req.reply(
       hasVacation
@@ -222,7 +280,50 @@ Cypress.Commands.add('deleteEmployeeById', (id, hasVacation = false) => {
         : { statusCode: 204, body: {} }
     )
   }).as('mockDeleteEmployee')
-})
+});
+
+// Mock POST /users
+Cypress.Commands.add('createUser', (user) => {
+  cy.intercept('POST', `/users`, (req) => {
+    expect(req.headers.authorization).to.eq(`Bearer ${token}`);
+    expect(req.body).to.include(user)
+
+    req.reply({
+      statusCode: 201,
+      body: user
+    });
+  }).as('mockCreateUser')
+});
+
+// Mock GET /users/id
+Cypress.Commands.add('getUser', (id, fixtureName = 'adminUserLocalStorage') => {
+  cy.fixture(fixtureName).then((userData) => {
+    cy.intercept(
+      {
+        method: 'GET',
+        url: `/users/${id}`,
+      },
+      {
+        statusCode: 200,
+        body: userData
+      }
+    ).as('mockGetUser');
+  });
+});
+
+
+
+// Mock login as any user fixture
+Cypress.Commands.add('mockAthenticateAs', (userFixture) => {
+  cy.fixture(userFixture).then((userInfo) => {
+    cy.intercept('POST', '/sign-in', {
+      statusCode: 200,
+      body: userInfo
+    }).as('mockSignInRequest')
+
+    cy.window().its('localStorage').invoke('setItem', 'userInfo', JSON.stringify(userInfo))
+  })
+});
 
 // Combine login + mock in one command
 Cypress.Commands.add('loginAndMockWithEmployees', (employeeList = 'employees') => {
@@ -234,4 +335,4 @@ Cypress.Commands.add('loginAndMockWithEmployees', (employeeList = 'employees') =
 
   cy.wait('@mockSignInRequest')
   cy.wait('@mockEmployees')
-})
+});
