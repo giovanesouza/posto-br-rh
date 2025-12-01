@@ -69,12 +69,14 @@ Cypress.Commands.add('fillInput', (selector, value) => cy.get(selector).should('
 
 Cypress.Commands.add('verifyErrorToast', (text) => {
   cy.get(selectors.toasts.error, { timeout: 8000 })
+    .scrollIntoView()
     .should('be.visible')
     .and('contain.text', text)
 });
 
 Cypress.Commands.add('verifySuccessToast', (text) => {
   cy.get(selectors.toasts.success, { timeout: 8000 })
+    .scrollIntoView()
     .should('be.visible')
     .and('contain.text', text)
 });
