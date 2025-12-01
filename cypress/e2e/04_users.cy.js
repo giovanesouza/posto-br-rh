@@ -13,12 +13,14 @@ describe('Users', () => {
 
     it('2 Should attempt to register a user with empty fields', () => {
         cy.accessMenu('Criar usuário');
+        cy.wait('@mockEmployees');
         cy.submitForm();
         cy.verifyErrorToast('Verifique se os campos foram preenchidos corretamente.');
     });
 
     it('3 Should attempt to register a user with only the username field filled', () => {
         cy.accessMenu('Criar usuário');
+        cy.wait('@mockEmployees');
         cy.fillInput(selectors.createUser.usernameInput, employeeUserWithVacation.username);
         cy.submitForm();
         cy.scrollTo('top');
@@ -29,6 +31,7 @@ describe('Users', () => {
         const { username, password, isAdmin, name } = employeeUserWithVacation;
         cy.createUser({ username, password, isAdmin });
         cy.accessMenu('Criar usuário');
+        cy.wait('@mockEmployees');
         cy.selectOption(selectors.createUser.employeeSelect, employeeUserWithVacation.name);
         cy.fillInput(selectors.createUser.usernameInput, employeeUserWithVacation.username);
         cy.submitForm();

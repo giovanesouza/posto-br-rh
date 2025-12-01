@@ -61,18 +61,18 @@ export default function RegisterUser() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!fieldValue.employeeId || !fieldValue.password) {
-      showToast({
-        type: "error",
-        message: "Os campos senha, funcionário são obrigatórios!",
-      });
-      return;
-    }
-
     if (!IsUsernameValid(fieldValue.username)) {
       showToast({
         type: "error",
         message: "Verifique se os campos foram preenchidos corretamente.",
+      });
+      return;
+    }
+
+    if (!fieldValue.employeeId || !fieldValue.password) {
+      showToast({
+        type: "error",
+        message: "Os campos senha, funcionário são obrigatórios!",
       });
       return;
     }
