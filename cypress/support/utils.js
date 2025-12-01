@@ -20,11 +20,12 @@ export const employeeUser = {
 };
 
 export const employeeUserWithVacation = {
+  employeeId: "987c63ed-670a-44b5-bcd2-7b452afc148b",
   name: "Maria Clara Souza Oliveira",
   profile: "employee",
   isAdmin: false,
   username: "mariaoliveira",
-  password: "123456"
+  password: "407.378.189-80"
 };
 
 export const invalidUser = {

@@ -76,6 +76,26 @@ export default function RegisterVacation() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Field validations
+    if (!fieldValue.startDate) {
+      showToast({
+        type: "error",
+        message: "O campo data inicial é obrigatório!",
+      });
+      return;
+    }
+
+    if (
+      fieldValue.isVacationSold &&
+      (!fieldValue.soldDays || fieldValue.soldDays === 0)
+    ) {
+      showToast({
+        type: "error",
+        message: "Informe a quantidade de dias vendidos!",
+      });
+      return;
+    }
+
     try {
       const vacation = {
         employeeId: fieldValue.employeeId,
@@ -83,7 +103,7 @@ export default function RegisterVacation() {
         soldDays: parseInt(fieldValue.soldDays),
         startDate: new Date(fieldValue.startDate).toISOString(),
         endDate: new Date(fieldValue.endDate).toISOString(),
-      }
+      };
       await createVacation(vacation);
       navigate("/app/funcionarios", {
         state: `Férias cadastrada com sucesso para o funcionário: ${employee.name}!`,
@@ -95,11 +115,13 @@ export default function RegisterVacation() {
 
   return (
     <>
-    <div style={{marginBottom: "4rem" }} className="text-align-center"> 
-    <h1 style={{marginBottom: "1rem" }}>Cadastrar férias</h1>
-      <p><strong>Colaborador:</strong> {employee.name}</p>
-
-    </div>
+      <ToastAnimated />
+      <div style={{ marginBottom: "4rem" }} className="text-align-center">
+        <h1 style={{ marginBottom: "1rem" }}>Cadastrar férias</h1>
+        <p>
+          <strong>Colaborador:</strong> {employee.name}
+        </p>
+      </div>
       <form onSubmit={handleSubmit}>
         <InputGroup
           label="Férias vendidas?"
