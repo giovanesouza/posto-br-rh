@@ -6,8 +6,8 @@ describe('Vacations', () => {
   });
 
   it('1 Should access employee without registered vacations and verify elements', () => {
-    cy.selectVacationHistoryButton('Pedro Henrique Ferreira Silva');
     cy.getEmployeeById('897c63ed-680a-44b5-bcd2-7b442afc149b');
+    cy.selectVacationHistoryButton('Pedro Henrique Ferreira Silva');
     cy.wait('@mockEmployeeById');
     cy.get(selectors.vacationHistory.title).should('exist').and('be.visible');
     cy.get(selectors.buttons.vacationCreateBtn).should('exist').and('be.visible');
