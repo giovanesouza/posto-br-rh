@@ -21,6 +21,7 @@ describe('Users', () => {
         cy.accessMenu('Criar usuário');
         cy.fillInput(selectors.createUser.usernameInput, employeeUserWithVacation.username);
         cy.submitForm();
+        cy.scrollTo('top');
         cy.verifyErrorToast('Os campos senha, funcionário são obrigatórios!');
     });
 

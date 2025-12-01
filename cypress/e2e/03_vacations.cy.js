@@ -43,13 +43,4 @@ describe('Vacations', () => {
     cy.get(selectors.buttons.vacationDeleteBtn).should('exist').and('be.visible');
   });
 
-  // -------------------------------------------------------------------------------
-
-  // CADASTRAR USUÁRIO PARA FUNCIONÁRIO - Débora Heloisa Fabiana Mendes - Feature de page de cadastro
-  // **** LOGAR COM ESTA USUÁRIA CRIADA
-
-
-  // **** EDITAR LOGIN: IMPLEMENTAR EM 01_LOGIN: Apenas conferir UI
-
-  // ****** CRIAR UM OUTRO CY.JS para logar com esta conta e verificar todas as rodas que estão bloqueadas - 401
 });
