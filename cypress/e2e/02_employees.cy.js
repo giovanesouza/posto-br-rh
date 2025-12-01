@@ -17,7 +17,7 @@ describe('Employees', () => {
     it('2. Should return all employees with matching name - multiple matches expected', () => {
         cy.loginAndMockWithEmployees();
         cy.searchEmployeeByName('Souza');
-        cy.verifyTotalFilteredItemsAppearAsExpected(2);
+        cy.verifyTotalFilteredItemsAppearAsExpected(3);
     });
 
     it('3. Should return results regardless of case sensitivity', () => {
@@ -31,7 +31,7 @@ describe('Employees', () => {
     it('4. Should return all employees when search input is just a space', () => {
         cy.loginAndMockWithEmployees();
         cy.searchEmployeeByName(' ');
-        cy.verifyTotalFilteredItemsAppearAsExpected(3); // total of the fixture
+        cy.verifyTotalFilteredItemsAppearAsExpected(4); // total of the fixture
     });
 
     // Registering Employee
