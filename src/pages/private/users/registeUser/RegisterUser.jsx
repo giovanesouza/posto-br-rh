@@ -13,7 +13,6 @@ import { findAllEmployees } from "../../../../services/employeesService.jsx";
 import { createUser } from "../../../../services/userService.jsx";
 
 export default function RegisterUser() {
-
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState({});
   const [fieldValue, setFieldValue] = useState({
@@ -62,8 +61,16 @@ export default function RegisterUser() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!fieldValue.employeeId || !fieldValue.password) {
+      showToast({
+        type: "error",
+        message: "Os campos senha, funcionário são obrigatórios!",
+      });
+      return;
+    }
+
     if (!IsUsernameValid(fieldValue.username)) {
-       showToast({
+      showToast({
         type: "error",
         message: "Verifique se os campos foram preenchidos corretamente.",
       });
@@ -72,8 +79,11 @@ export default function RegisterUser() {
 
     try {
       await createUser(fieldValue);
-      showToast({ type: "success", message: `Usuário cadastrado com sucesso para o(a) funcionário(a): ${selectedEmployee.name}!`});
-      setTimeout(() => window.location.reload(), 2000) ;
+      showToast({
+        type: "success",
+        message: `Usuário cadastrado com sucesso para o(a) funcionário(a): ${selectedEmployee.name}!`,
+      });
+      setTimeout(() => window.location.reload(), 2000);
     } catch (error) {
       showToast({ type: "error", message: error.response.data.message });
     }
@@ -95,7 +105,13 @@ export default function RegisterUser() {
           Crie um login para o funcionário. É Simples!
         </p>
         <ol>
-          <li>1. Selecione o nome do funcionário na lista - <span className="warning">usuários que não podem ser selecionados já têm cadastro</span>;</li>
+          <li>
+            1. Selecione o nome do funcionário na lista -{" "}
+            <span className="warning">
+              usuários que não podem ser selecionados já têm cadastro
+            </span>
+            ;
+          </li>
           <li>
             2. Digite o nome do usuário: deve conter de 12 a 20 letras -{" "}
             <span className="warning">
